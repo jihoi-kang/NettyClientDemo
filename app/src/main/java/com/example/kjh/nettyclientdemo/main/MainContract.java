@@ -1,25 +1,24 @@
 package com.example.kjh.nettyclientdemo.main;
 
-import com.example.kjh.nettyclientdemo.data.MessageHolder;
-import com.example.kjh.nettyclientdemo.netty.FutureListener;
-
 public interface MainContract {
 
     interface View {
 
         String getType();
         String getBody();
+        void setResult(String str);
+        void showToast(String message);
 
     }
 
     interface Presenter {
 
         void onClickedSendBtn();
+        void onDestroy();
     }
 
     interface Model {
 
-        void sendMessage(MessageHolder holder, FutureListener listener);
     }
 
 }

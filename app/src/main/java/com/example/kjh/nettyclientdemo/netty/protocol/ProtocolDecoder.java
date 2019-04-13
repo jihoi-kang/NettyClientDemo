@@ -4,6 +4,7 @@ import com.example.kjh.nettyclientdemo.data.ChatLogs;
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
 import com.example.kjh.nettyclientdemo.netty.serializer.Serializer;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
@@ -19,7 +20,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 public class ProtocolDecoder extends ByteToMessageDecoder {
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws UnsupportedEncodingException {
         if (in.readableBytes() < ProtocolHeader.HEADER_LENGTH) {
 //            패킷 길이가 해더보다 짧음
             return;

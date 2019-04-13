@@ -1,5 +1,7 @@
 package com.example.kjh.nettyclientdemo.netty.handler;
 
+import android.util.Log;
+
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
 import com.example.kjh.nettyclientdemo.netty.NettyClient;
 import com.example.kjh.nettyclientdemo.netty.NettyListener;
@@ -61,5 +63,6 @@ public class NettyHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         ctx.close();
+        Log.e("NettyHandler", cause.getMessage());
     }
 }

@@ -9,15 +9,11 @@ import com.example.kjh.nettyclientdemo.data.ChatLogs;
 
 public class Events {
 
-
-    /** 이벤트
-     *    Netty_handler --> Chat_F
-     *    : Data_for_netty 객체와 함께 채팅방 리사이클러뷰에 대한 변경점 이벤트 메시지를 전달
-     * */
-    public static class Event1 {
+    /** 소켓 콜백 이벤트 보내기 */
+    public static class SocketCallBack {
         private ChatLogs chatLogs;
 
-        public Event1(ChatLogs chatLogs) {
+        public SocketCallBack(ChatLogs chatLogs) {
             this.chatLogs = chatLogs;
         }
 

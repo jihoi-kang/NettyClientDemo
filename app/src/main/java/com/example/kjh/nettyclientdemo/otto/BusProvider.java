@@ -3,18 +3,15 @@ package com.example.kjh.nettyclientdemo.otto;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
-/**
- * Created by JYN on 2017-11-17.
- */
-
 public final class BusProvider {
 
-    private static Bus sBus;
+    private static Bus instance;
 
-    public static Bus getBus() {
-        if (sBus == null) {
-            sBus = new Bus(ThreadEnforcer.ANY);
+    public static Bus getInstance() {
+        if (instance == null) {
+            instance = new Bus(ThreadEnforcer.ANY);
         }
-        return sBus;
+        return instance;
     }
+
 }

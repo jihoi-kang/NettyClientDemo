@@ -24,6 +24,7 @@ public class NettyClient {
     private NettyListener listener;
     private Channel channel;
 
+//    현재 연결 상태 여부
     private boolean isConnect = false;
     private int reconnectNum = Integer.MAX_VALUE;
     private long reconnectIntervalTime = 5000;
@@ -129,6 +130,7 @@ public class NettyClient {
                     }
                 });
             }
+
         }
 
         return flag;

@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
 import com.example.kjh.nettyclientdemo.otto.BusProvider;
@@ -67,7 +68,7 @@ public class NettyService extends Service implements NettyListener {
 
 //        브로드 캐스트 수신 해제
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-
+        Log.e("NettyService", "onDestroy");
         shutdown();
     }
 
@@ -110,10 +111,11 @@ public class NettyService extends Service implements NettyListener {
      메서드 ==> 메시지 처리
      ------------------------------------------------------------------*/
     @Override
-    public void onMessageResponse(MessageHolder messageHolder) {
-        // TODO: 메시지 처리
-        Events.Event1 event1 = new Events.Event1(messageHolder.getChatLogs());
-        BusProvider.getBus().post(event1);
+    public void onMessageResponse(final MessageHolder messageHolder) {
+        // TODO: 메시지 유형별로 Bus Event 보내기
+        Events.SocketCallBack event = new Events.SocketCallBack(messageHolder.getChatLogs());
+        BusProvider.getInstance().post(event);
+
     }
 
     /**------------------------------------------------------------------
