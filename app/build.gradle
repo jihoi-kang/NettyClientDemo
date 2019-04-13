@@ -32,4 +32,10 @@ dependencies {
 
     /** Netty api */
     implementation 'io.netty:netty-all:4.1.18.Final'
+
+    /** Gson api */
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    /** otto api */
+    implementation 'com.squareup:otto:1.3.8'
 }

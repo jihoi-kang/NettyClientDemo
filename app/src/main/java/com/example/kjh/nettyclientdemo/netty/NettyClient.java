@@ -1,8 +1,15 @@
 package com.example.kjh.nettyclientdemo.netty;
 
+import com.example.kjh.nettyclientdemo.data.MessageHolder;
 import com.example.kjh.nettyclientdemo.etc.Statics;
+import com.example.kjh.nettyclientdemo.netty.protocol.ProtocolHeader;
+import com.example.kjh.nettyclientdemo.netty.serializer.Serializer;
+
+import java.io.UnsupportedEncodingException;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -80,6 +87,51 @@ public class NettyClient {
         } else {
             disconnect();
         }
+    }
+
+    /**------------------------------------------------------------------
+     메서드 ==> 서버에 메시지를 보내는 기능
+     ------------------------------------------------------------------*/
+    public boolean sendMsgToServer(MessageHolder msg, FutureListener listener) {
+        boolean flag = channel !=null && isConnect;
+        if(flag) {
+            String body = Serializer.serialize(msg.getChatLogs());
+            if (body == null)
+                throw new NullPointerException("Body is null");
+
+            byte[] bytes = new byte[0];
+            try {
+                bytes = body.getBytes("utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            ByteBuf buf = Unpooled.buffer();
+
+            buf.writeShort(ProtocolHeader.START)
+                    .writeByte(msg.getSign())
+                    .writeByte(msg.getType())
+                    .writeInt(bytes.length)
+                    .writeBytes(bytes);
+
+            if(listener != null){
+                channel.writeAndFlush(buf).addListener(listener);
+            } else {
+                channel.writeAndFlush(buf).addListener(new FutureListener() {
+                    @Override
+                    public void success() {
+
+                    }
+
+                    @Override
+                    public void error() {
+
+                    }
+                });
+            }
+        }
+
+        return flag;
     }
 
     /** Setter & Getter */

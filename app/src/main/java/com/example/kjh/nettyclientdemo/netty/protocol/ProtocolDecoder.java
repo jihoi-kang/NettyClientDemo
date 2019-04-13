@@ -1,6 +1,8 @@
 package com.example.kjh.nettyclientdemo.netty.protocol;
 
+import com.example.kjh.nettyclientdemo.data.ChatLogs;
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
+import com.example.kjh.nettyclientdemo.netty.serializer.Serializer;
 
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class ProtocolDecoder extends ByteToMessageDecoder {
         MessageHolder messageHolder = new MessageHolder();
         messageHolder.setSign(sign);
         messageHolder.setType(type);
-        messageHolder.setBody(new String(bytes, "utf-8"));
+        messageHolder.setChatLogs(Serializer.deserialize(new String(bytes, "utf-8"), ChatLogs.class));
 
         out.add(messageHolder);
     }

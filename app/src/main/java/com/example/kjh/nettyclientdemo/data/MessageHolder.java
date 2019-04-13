@@ -1,13 +1,18 @@
 package com.example.kjh.nettyclientdemo.data;
 
-import io.netty.channel.Channel;
-
 public class MessageHolder {
 
     private byte sign;
     private byte type;
-    private String body;
-    private Channel channel;
+    private ChatLogs chatLogs;
+
+    public ChatLogs getChatLogs() {
+        return chatLogs;
+    }
+
+    public void setChatLogs(ChatLogs chatLogs) {
+        this.chatLogs = chatLogs;
+    }
 
     public byte getSign() {
         return sign;
@@ -25,29 +30,12 @@ public class MessageHolder {
         this.type = type;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
     @Override
     public String toString() {
         return "MessageHolder{" +
                 "sign=" + sign +
                 ", type=" + type +
-                ", body='" + body + '\'' +
-                ", channel=" + channel +
+                ", chatLogs=" + chatLogs +
                 '}';
     }
 }

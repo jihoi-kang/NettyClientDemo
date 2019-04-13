@@ -20,6 +20,7 @@ public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) {
         ChannelPipeline pipeline = ch.pipeline();
+
 //        IN / OUT bound
 //        pipeline.addLast(new LoggingHandler(LogLevel.INFO));
         pipeline.addLast("IdleStateHandler", new IdleStateHandler(6, 0, 0));

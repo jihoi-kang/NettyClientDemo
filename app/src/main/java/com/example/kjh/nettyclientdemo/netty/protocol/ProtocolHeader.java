@@ -14,6 +14,6 @@ public class ProtocolHeader {
     public static final byte NOTICE             = 0x03; // server --> client
 
     /** type 0x11 ~ */
-
+    public static final byte CONN               = 0x11;
 
 }

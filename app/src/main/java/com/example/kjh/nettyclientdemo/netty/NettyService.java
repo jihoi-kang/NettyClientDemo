@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
+import com.example.kjh.nettyclientdemo.otto.BusProvider;
+import com.example.kjh.nettyclientdemo.otto.Events;
 
 /**
  * Netty 서비스 클래스
@@ -110,6 +112,8 @@ public class NettyService extends Service implements NettyListener {
     @Override
     public void onMessageResponse(MessageHolder messageHolder) {
         // TODO: 메시지 처리
+        Events.Event1 event1 = new Events.Event1(messageHolder.getChatLogs());
+        BusProvider.getBus().post(event1);
     }
 
     /**------------------------------------------------------------------

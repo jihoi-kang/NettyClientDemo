@@ -1,6 +1,8 @@
 package com.example.kjh.nettyclientdemo.netty.protocol;
 
+import com.example.kjh.nettyclientdemo.data.ChatLogs;
 import com.example.kjh.nettyclientdemo.data.MessageHolder;
+import com.example.kjh.nettyclientdemo.netty.serializer.Serializer;
 
 import java.io.UnsupportedEncodingException;
 
@@ -18,10 +20,11 @@ public class ProtocolEncoder extends MessageToByteEncoder<MessageHolder> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, MessageHolder msg, ByteBuf out) throws UnsupportedEncodingException {
-        String body = msg.getBody();
+        ChatLogs chatLogs = msg.getChatLogs();
+        String body = Serializer.serialize(chatLogs);
 
         if(body == null)
-            throw new NullPointerException("MessageHolder's body is null");
+            throw new NullPointerException("Body is null");
 
         byte[] bytes = body.getBytes("utf-8");
 
